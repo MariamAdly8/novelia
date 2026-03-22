@@ -184,7 +184,7 @@ const description = computed(() => {
 
   &:hover {
     background: var(--primary-color);
-    color: white;
+    color: var(--bg-color);
     transform: rotate(90deg);
   }
 }
@@ -276,7 +276,7 @@ const description = computed(() => {
 
 .add-to-shelf-btn {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--bg-color);
   border: none;
   flex-grow: 1;
   transition: all 0.3s ease;
