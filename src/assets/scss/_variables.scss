@@ -1,0 +1,28 @@
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+
+:root {
+  --bg-color: rgb(245, 242, 231);           // background color
+  --surface-color: #ffffff;      // cards color
+  --text-primary: #000000;       // primary text color
+  --text-secondary: #777779;     // secondry text color
+  --primary-color: #012044;      // button color
+  --secondary-color: #009eaa; // secondary color
+  --border-color:rgb(200, 200, 198);
+  --search-bg: rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(245, 242, 231, 0.9); // glass effect
+}
+
+html.dark-theme {
+  --bg-color: rgb(1, 28, 59);           
+  --surface-color: #243551;      
+  --text-primary: #F5F2E7;       
+  --text-secondary: #a6b6cd;     
+  --primary-color: rgb(245, 242, 231);      
+  --secondary-color: #C5A059;
+  --border-color:rgb(1, 1, 1);
+  --search-bg: rgba(0, 0, 0, 0.25);
+  --glass-bg: rgba(0, 33, 71, 0.9); 
+}
