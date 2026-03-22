@@ -3,7 +3,7 @@
 Novelia is a modern, responsive Single Page Application (SPA) built with Vue.js that allows users to explore, search, and curate their own personal library using the Google Books API.
 
 ## 🚀 Live Demo
-[Explore Novelia Live](https://mariamadly.github.io/novelia/)
+[Explore Novelia Live](https://mariamadly8.github.io/novelia/)
 
 ## ✨ Key Features
 
