@@ -4,8 +4,11 @@ import BookshelfView from '../views/bookShelfView.vue'
 import ContactUsView from '@/views/contactUsView.vue'
 import SearchView from '../views/searchView.vue'
 import NotFoundView from '../views/notFoundView.vue'
+
+const baseUrl = process.env.BASE_URL || (process.env.NODE_ENV === 'production' ? '/novelia/' : '/')
+
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(baseUrl),
   routes: [
     {
       path: '/',
