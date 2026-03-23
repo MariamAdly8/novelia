@@ -177,9 +177,14 @@ const fetchTrendingBooks = async () => {
   trendingError.value = null
   const data = await getBooks('subject:fantasy', 1, 3)
   if (data.error) {
-    trendingError.value = "Due to high traffic, we've temporarily reached the API limit. Please try again later!"
+    const errStr = String(data.error).toLowerCase()
+    if (errStr.includes('429') || errStr.includes('quota') || errStr.includes('too many requests')) {
+      trendingError.value = "We've temporarily reached the API limit. Please try again later!"
+    } else {
+      trendingError.value = "An unexpected error occurred while loading trending books."
+    }
     trendingBooks.value = []
-  } else if (data.items) {
+  }else if (data.items) {
     trendingBooks.value = data.items
   }
   isTrendingLoading.value = false
@@ -192,7 +197,13 @@ const fetchLibraryBooks = async () => {
   const data = await getBooks(currentCategory.value, currentPage.value, itemsPerPage)
 
   if (data.error) {
-    error.value = "Due to high traffic, we've temporarily reached the API limit. Please try again later!"
+    const errStr = String(data.error).toLowerCase()
+    
+    if (errStr.includes('429') || errStr.includes('quota') || errStr.includes('too many requests')) {
+      error.value = "We've temporarily reached the API limit. Please try again later!"
+    } else {
+      error.value = "An unexpected error occurred while fetching the library. Please try again."
+    }
     books.value = []
   } else {
     books.value = data.items
