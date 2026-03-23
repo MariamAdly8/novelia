@@ -12,6 +12,11 @@
         <div class="spinner"></div>
       </div>
 
+      <div v-else-if="trendingError" class="error-state">
+        <span class="icon">🚧</span>
+        <p>{{ trendingError }}</p>
+      </div>
+
       <div v-else class="trending-grid">
         <div 
           v-for="(book, index) in trendingBooks" 
@@ -64,7 +69,8 @@
       </div>
 
       <div v-if="error" class="error-state">
-        {{ error }}
+        <span class="icon">🚧</span>
+        <p>{{ error }}</p>
       </div>
 
       <div v-else-if="isLoading" class="loading-state">
@@ -134,7 +140,7 @@ const closeModal = () => {
 
 const trendingBooks = ref([])
 const isTrendingLoading = ref(true)
-
+const trendingError = ref(null)
 const books = ref([])
 const isLoading = ref(true)
 const error = ref(null)
@@ -168,10 +174,14 @@ const setDefaultImage = (e) => {
 
 const fetchTrendingBooks = async () => {
   isTrendingLoading.value = true
+  trendingError.value = null
   const data = await getBooks('subject:fantasy', 1, 3)
-
-  if (data.items) trendingBooks.value = data.items
-
+  if (data.error) {
+    trendingError.value = "Due to high traffic, we've temporarily reached the API limit. Please try again later!"
+    trendingBooks.value = []
+  } else if (data.items) {
+    trendingBooks.value = data.items
+  }
   isTrendingLoading.value = false
 }
 
@@ -182,7 +192,7 @@ const fetchLibraryBooks = async () => {
   const data = await getBooks(currentCategory.value, currentPage.value, itemsPerPage)
 
   if (data.error) {
-    error.value = data.error
+    error.value = "Due to high traffic, we've temporarily reached the API limit. Please try again later!"
     books.value = []
   } else {
     books.value = data.items
@@ -436,6 +446,39 @@ onMounted(() => {
   .page-info {
     font-weight: 600;
     color: var(--text-primary);
+  }
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--bg-color); 
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #f59e0b; 
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 500px;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+
+  .icon {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
   }
 }
 
